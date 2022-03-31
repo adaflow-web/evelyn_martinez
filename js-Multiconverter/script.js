@@ -1,48 +1,52 @@
 
-
-// Use the window.prompt() function to get inputs from the user as demonstrated in the Tips and Tricks subject.
-// Display the conversion results in the browser console.
-// The program should not quit as long as the user wants to continue converting values.
-// If the user chooses a conversion that is not supported, display that in the console.
-
-// Find at least 3 conversion formulas you want to use with your multiconverter.
-// Write a function for each formula.
 function moneyConver(euros) {
-    userEuros = window.prompt("Entrez la valeur en € à convertir")
-    euros = Number(userValue);
-    result_money = euros * 1.03;
-    message1 = " suisse francs";
-    return result_money.toString() + message1;
+    return euros * 1.03;
 }
 
 function milesConver(miles) {
-    userValue = window.prompt("Entrez la valeur à convertir");
-    return miles * 1.61;
-    
+    return miles * 1.61;    
 }
 
 function tempConver(celsius) {
-    userValue = window.prompt("Entrez la valeur à convertir");
-    return (celsius * 9/5) + 32;
-    
+    return (celsius * 9/5) + 32;   
 }
 
-userOnUse = false
+function askUSer() {
+    answer = window.prompt("Voulez-vous utiliser le convertisseur? (oui/non)");
 
-while (userOnUse != true) {
-    userInput = window.prompt("Qu'est-ce que vous voulez convertir.(EUROS/MILES/CELSIUS)");
-    
-    if (userInput == "euros") {
-        console.log (moneyConver(euros).toString());
-    }
-    else if (userInput == "miles") {
-        console.log (milesConver(miles).toString());
-    }
-    else if (userInput == "celsius") {
-        console.log (tempConver(celsius));
-    }
-    else {
-        userOnUse = false;
-    }
-        
+    if (answer != "oui" && answer != "non") {
+        return window.alert("Vous devez répondre oui/non");
+    } else if (answer == "oui") {
+        return true;
+    } else {
+        return false;       
+    } 
 }
+
+function askConver() {
+    answer = window.prompt("Qu'est-ce que vous voulez convertir: euros/celsius/milles ");
+    return answer; 
+}
+
+function enterValue() {
+    answer = window.prompt("Entrez la valeur");
+    return answer;
+}
+
+while (askUSer()) {
+    var converType = askConver();
+    var converValue = enterValue();
+    var message = "Résultat: "
+    var result = 0;
+
+    if (converType == "euros") {
+        message += moneyConver(Number(converValue)).toString() + " chf";    
+    } else if (converType == "celsius"){
+        message += tempConver(Number(converValue)).toString() + " Fahrenheit";
+    } else if (converType == "milles") {
+        message += milesConver(Number(converValue)).toString() + " Kms";
+    } else {
+       message = " :/ Je ne peux pas vous aider avec cette conversion"; 
+    }
+    console.log (message);
+} 
